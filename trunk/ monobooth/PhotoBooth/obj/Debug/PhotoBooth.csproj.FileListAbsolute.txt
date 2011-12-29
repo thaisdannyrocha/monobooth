@@ -1,0 +1,10 @@
+c:\Data\Development\Projects\PhotoBooth\PhotoBooth\bin\Debug\PhotoBooth.exe
+c:\Data\Development\Projects\PhotoBooth\PhotoBooth\bin\Debug\PhotoBooth.pdb
+c:\Data\Development\Projects\PhotoBooth\PhotoBooth\obj\Debug\ResolveAssemblyReference.cache
+c:\Data\Development\Projects\PhotoBooth\PhotoBooth\obj\Debug\PhotoBooth.frmMain.resources
+c:\Data\Development\Projects\PhotoBooth\PhotoBooth\obj\Debug\PhotoBooth.Properties.Resources.resources
+c:\Data\Development\Projects\PhotoBooth\PhotoBooth\obj\Debug\PhotoBooth.csproj.GenerateResource.Cache
+c:\Data\Development\Projects\PhotoBooth\PhotoBooth\obj\Debug\PhotoBooth.exe
+c:\Data\Development\Projects\PhotoBooth\PhotoBooth\obj\Debug\PhotoBooth.pdb
+c:\Data\Development\Projects\PhotoBooth\PhotoBooth\bin\Debug\ThoughtWorks.QRCode.dll
+c:\Data\Development\Projects\PhotoBooth\PhotoBooth\bin\Debug\VAkos.dll

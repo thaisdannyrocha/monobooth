@@ -1,0 +1,41 @@
+<xml>
+  <window>
+    <width value="800" />
+    <height value="600" />
+  </window>
+  <imgStrip1>
+    <enabled value="True" />
+    <locationX value="63" />
+    <locationY value="110" />
+    <backgroundcolor value="Black" />
+  </imgStrip1>
+  <imgStrip2>
+    <enabled value="True" />
+    <locationX value="63" />
+    <locationY value="216" />
+    <backgroundcolor value="Black" />
+  </imgStrip2>
+  <imgStrip3>
+    <enabled value="True" />
+    <locationX value="63" />
+    <locationY value="322" />
+    <backgroundcolor value="Black" />
+  </imgStrip3>
+  <imgStrip4>
+    <enabled value="True" />
+    <locationX value="63" />
+    <locationY value="428" />
+    <backgroundcolor value="Black" />
+  </imgStrip4>
+  <CompleteMessage />
+  <completeMsg>
+    <text value="Your PhotoStrip is complete. Scan this QR code to get them" />
+    <flash value="False" />
+    <showQRcode value="True" />
+    <X value="126" />
+    <color value="ControlText" />
+  </completeMsg>
+  <completeMsd>
+    <Y value="9" />
+  </completeMsd>
+</xml>
