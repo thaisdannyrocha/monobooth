@@ -68,6 +68,7 @@
             this.imgStrip4.Location = new System.Drawing.Point(63, 428);
             this.imgStrip4.Name = "imgStrip4";
             this.imgStrip4.Size = new System.Drawing.Size(100, 100);
+            this.imgStrip4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imgStrip4.TabIndex = 3;
             this.imgStrip4.TabStop = false;
             // 
@@ -77,6 +78,7 @@
             this.imgStrip3.Location = new System.Drawing.Point(63, 322);
             this.imgStrip3.Name = "imgStrip3";
             this.imgStrip3.Size = new System.Drawing.Size(100, 100);
+            this.imgStrip3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imgStrip3.TabIndex = 2;
             this.imgStrip3.TabStop = false;
             // 
@@ -86,6 +88,7 @@
             this.imgStrip2.Location = new System.Drawing.Point(63, 216);
             this.imgStrip2.Name = "imgStrip2";
             this.imgStrip2.Size = new System.Drawing.Size(100, 100);
+            this.imgStrip2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imgStrip2.TabIndex = 1;
             this.imgStrip2.TabStop = false;
             // 
@@ -95,6 +98,7 @@
             this.imgStrip1.Location = new System.Drawing.Point(63, 110);
             this.imgStrip1.Name = "imgStrip1";
             this.imgStrip1.Size = new System.Drawing.Size(100, 100);
+            this.imgStrip1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imgStrip1.TabIndex = 0;
             this.imgStrip1.TabStop = false;
             // 
@@ -136,8 +140,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmMain";
             this.Text = "PhotoBooth";
-            this.Load += new System.EventHandler(this.frmMain_Load);
             this.MaximumSizeChanged += new System.EventHandler(this.frmMain_MaximumSizeChanged);
+            this.Load += new System.EventHandler(this.frmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.imgPrompts)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip3)).EndInit();
