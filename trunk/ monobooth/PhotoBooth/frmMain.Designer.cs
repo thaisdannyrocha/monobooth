@@ -36,6 +36,7 @@
             this.imgStrip1 = new System.Windows.Forms.PictureBox();
             this.lblCompleteMsg = new System.Windows.Forms.Label();
             this.imgQR = new System.Windows.Forms.PictureBox();
+            this.lblStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imgPrompts)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip3)).BeginInit();
@@ -56,9 +57,9 @@
             // 
             // imgPrompts
             // 
-            this.imgPrompts.Location = new System.Drawing.Point(194, 111);
+            this.imgPrompts.Location = new System.Drawing.Point(194, 133);
             this.imgPrompts.Name = "imgPrompts";
-            this.imgPrompts.Size = new System.Drawing.Size(515, 416);
+            this.imgPrompts.Size = new System.Drawing.Size(515, 174);
             this.imgPrompts.TabIndex = 4;
             this.imgPrompts.TabStop = false;
             // 
@@ -123,12 +124,23 @@
             this.imgQR.TabStop = false;
             this.imgQR.Visible = false;
             // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.Location = new System.Drawing.Point(325, 408);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(73, 25);
+            this.lblStatus.TabIndex = 8;
+            this.lblStatus.Text = "Status";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 600);
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.imgQR);
             this.Controls.Add(this.lblCompleteMsg);
             this.Controls.Add(this.cmdStart);
@@ -163,6 +175,7 @@
         private System.Windows.Forms.Button cmdStart;
         private System.Windows.Forms.Label lblCompleteMsg;
         private System.Windows.Forms.PictureBox imgQR;
+        private System.Windows.Forms.Label lblStatus;
     }
 }
 

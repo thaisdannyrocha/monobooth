@@ -181,18 +181,52 @@ namespace PhotoBooth
 
             //Save settings incase anything was not specified and defaults were added
             xcfg.Save("config.xml");
-            this.Location = new Point(0, 0);
+            this.Location = new Point(20, 20);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            lblStatus.Text = "Get Ready";
+            string img1 = Guid.NewGuid().ToString();
+            string img2 = Guid.NewGuid().ToString();
+            string img3 = Guid.NewGuid().ToString();
+            string img4 = Guid.NewGuid().ToString();
+
+            lblStatus.Text = "Smile!";
+
             System.Diagnostics.Process capProcess = new System.Diagnostics.Process();
             capProcess.StartInfo.FileName = "gphoto2";
-            capProcess.StartInfo.Arguments = " --capture-image-and-download --filename image1.jpg";
+            capProcess.StartInfo.Arguments = string.Format(" --capture-image-and-download --filename {0}", img1);
             capProcess.Start();
+            lblStatus.Text = "Processing Image";
             capProcess.WaitForExit();
-            imgStrip1.Image = System.Drawing.Image.FromFile("image1.jpg");
+            imgStrip1.Image = System.Drawing.Image.FromFile(img1);
+
+            lblStatus.Text = "Smile!";
+            capProcess.StartInfo.Arguments = string.Format(" --capture-image-and-download --filename {0}", img2);
+            capProcess.Start();
+            lblStatus.Text = "Processing Image";
+            capProcess.WaitForExit();
+            imgStrip2.Image = System.Drawing.Image.FromFile(img2);
+            
+            lblStatus.Text = "Smile!";
+            capProcess.StartInfo.Arguments = string.Format(" --capture-image-and-download --filename {0}", img3);
+            capProcess.Start();
+            lblStatus.Text = "Processing Image";
+            capProcess.WaitForExit();
+            imgStrip3.Image = System.Drawing.Image.FromFile(img3);
+
+            lblStatus.Text = "Smile!";
+            capProcess.StartInfo.Arguments = string.Format(" --capture-image-and-download --filename {0}", img4);
+            capProcess.Start();
+            lblStatus.Text = "Processing Image";
+            capProcess.WaitForExit();
+            imgStrip4.Image = System.Drawing.Image.FromFile(img4);
+            lblStatus.Text = "Done!";
+
 
         }
+
+
     }
 }
