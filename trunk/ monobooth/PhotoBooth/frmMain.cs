@@ -187,39 +187,48 @@ namespace PhotoBooth
         private void button1_Click(object sender, EventArgs e)
         {
             lblStatus.Text = "Get Ready";
+            Application.DoEvents();
             string img1 = Guid.NewGuid().ToString();
             string img2 = Guid.NewGuid().ToString();
             string img3 = Guid.NewGuid().ToString();
             string img4 = Guid.NewGuid().ToString();
 
             lblStatus.Text = "Smile!";
+            Application.DoEvents();
 
             System.Diagnostics.Process capProcess = new System.Diagnostics.Process();
             capProcess.StartInfo.FileName = "gphoto2";
             capProcess.StartInfo.Arguments = string.Format(" --capture-image-and-download --filename {0}", img1);
             capProcess.Start();
             lblStatus.Text = "Processing Image";
+            Application.DoEvents();
             capProcess.WaitForExit();
             imgStrip1.Image = System.Drawing.Image.FromFile(img1);
 
             lblStatus.Text = "Smile!";
+            Application.DoEvents();
             capProcess.StartInfo.Arguments = string.Format(" --capture-image-and-download --filename {0}", img2);
             capProcess.Start();
             lblStatus.Text = "Processing Image";
+            Application.DoEvents();
             capProcess.WaitForExit();
             imgStrip2.Image = System.Drawing.Image.FromFile(img2);
             
             lblStatus.Text = "Smile!";
+            Application.DoEvents();
             capProcess.StartInfo.Arguments = string.Format(" --capture-image-and-download --filename {0}", img3);
             capProcess.Start();
             lblStatus.Text = "Processing Image";
+            Application.DoEvents();
             capProcess.WaitForExit();
             imgStrip3.Image = System.Drawing.Image.FromFile(img3);
 
             lblStatus.Text = "Smile!";
+            Application.DoEvents();
             capProcess.StartInfo.Arguments = string.Format(" --capture-image-and-download --filename {0}", img4);
             capProcess.Start();
             lblStatus.Text = "Processing Image";
+            Application.DoEvents();
             capProcess.WaitForExit();
             imgStrip4.Image = System.Drawing.Image.FromFile(img4);
             lblStatus.Text = "Done!";
