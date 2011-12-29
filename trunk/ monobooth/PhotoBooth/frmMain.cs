@@ -181,11 +181,18 @@ namespace PhotoBooth
 
             //Save settings incase anything was not specified and defaults were added
             xcfg.Save("config.xml");
+            this.Location = new Point(0, 0);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Location = new Point(0, 0);
+            System.Diagnostics.Process capProcess = new System.Diagnostics.Process();
+            capProcess.StartInfo.FileName = "gphoto2";
+            capProcess.StartInfo.Arguments = " --capture-image-and-download --filename image1.jpg";
+            capProcess.Start();
+            capProcess.WaitForExit();
+            imgStrip1.Image = System.Drawing.Image.FromFile("image1.jpg");
+
         }
     }
 }
