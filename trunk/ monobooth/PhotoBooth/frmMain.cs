@@ -255,7 +255,7 @@ namespace PhotoBooth
             capProcess.Start();
             capProcess.WaitForExit();
 
-            capProcess.StartInfo.FileName = "ld";
+            capProcess.StartInfo.FileName = "lp";
             capProcess.StartInfo.Arguments = " -d OkiData finalstrip.jpg";
             capProcess.Start();
             capProcess.WaitForExit();
@@ -264,6 +264,8 @@ namespace PhotoBooth
             {
                 System.IO.File.Delete(file);
             }
+
+            System.IO.File.Delete("finalstrip.jpg");
 
 
 
