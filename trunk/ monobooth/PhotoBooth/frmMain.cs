@@ -236,6 +236,17 @@ namespace PhotoBooth
 
         }
 
+        private void frmMain_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Console.WriteLine(e.KeyChar);
+        }
+
+        private void cmdStart_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == char.Parse("x"))
+                Application.Exit();
+        }
+
 
     }
 }
