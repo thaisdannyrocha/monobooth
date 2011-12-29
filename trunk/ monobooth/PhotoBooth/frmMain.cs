@@ -233,6 +233,40 @@ namespace PhotoBooth
             imgStrip4.Image = System.Drawing.Image.FromFile(img4);
             lblStatus.Text = "Done!";
 
+            capProcess.StartInfo.FileName = "convert";
+            capProcess.StartInfo.Arguments = string.Format(" -resize 640x480 -bordercolor black -border 10x6 {0} {0}-small.jpg", img1);
+            capProcess.Start();
+            capProcess.WaitForExit();
+
+            capProcess.StartInfo.Arguments = string.Format(" -resize 640x480 -bordercolor black -border 10x6 {0} {0}-small.jpg", img2);
+            capProcess.Start();
+            capProcess.WaitForExit();
+
+            capProcess.StartInfo.Arguments = string.Format(" -resize 640x480 -bordercolor black -border 10x6 {0} {0}-small.jpg", img3);
+            capProcess.Start();
+            capProcess.WaitForExit();
+
+            capProcess.StartInfo.Arguments = string.Format(" -resize 640x480 -bordercolor black -border 10x6 {0} {0}-small.jpg", img4);
+            capProcess.Start();
+            capProcess.WaitForExit();
+
+
+            capProcess.StartInfo.Arguments = (" *-small.jpg -append finalstrip.jpg");
+            capProcess.Start();
+            capProcess.WaitForExit();
+
+            capProcess.StartInfo.FileName = "ld";
+            capProcess.StartInfo.Arguments = " -d OkiData finalstrip.jpg";
+            capProcess.Start();
+            capProcess.WaitForExit();
+
+            foreach (string file in System.IO.Directory.GetFiles(".", "*-small.jpg"))
+            {
+                System.IO.File.Delete(file);
+            }
+
+
+
 
         }
 
