@@ -185,7 +185,7 @@ namespace PhotoBooth
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            this.Location = new Point(0, 0);
         }
     }
 }
