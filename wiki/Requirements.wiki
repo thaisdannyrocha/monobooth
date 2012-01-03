@@ -1,0 +1,13 @@
+#summary The minumum requirements for running MonoBooth
+#labels q
+
+= Introduction =
+
+The minimum requirements for getting the monobooth application up and running is outlined below
+
+
+= Details =
+
+*Mono (full)
+*gphoto2
+*Xorg
