@@ -9,5 +9,7 @@ The minimum requirements for getting the monobooth application up and running is
 = Details =
 
 *Mono (full)
+
 *gphoto2
+
 *Xorg
