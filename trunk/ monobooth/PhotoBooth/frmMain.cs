@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Emgu.CV;
+using Emgu.CV.Structure;
+using Emgu.Util;
 
 namespace PhotoBooth
 {
@@ -15,7 +18,15 @@ namespace PhotoBooth
         public string completeMessage = "";
         public bool completeMessageFlash = false;
         public bool completeMessageShowQR = false;
-        
+
+
+        private Capture _capture;
+        private int counter = 0;
+        private bool capturing = false;
+        private int frameNumber;
+        private string insText = "";
+        public string lastFilmStrip;
+
 
         //Set up a public config object
         VAkos.Xmlconfig xcfg = new VAkos.Xmlconfig("config.xml", true);
@@ -29,7 +40,38 @@ namespace PhotoBooth
         {
 
             setupInterface();
+            startPreview();
 
+        }
+
+        private void startPreview()
+        {
+            #region Create capture object if it is not already created
+
+            if (_capture == null)
+            {
+                try
+                {
+                    _capture = new Capture();
+                }
+                catch (NullReferenceException excpt)
+                {
+                    MessageBox.Show(excpt.Message);
+                }
+            }
+
+            #endregion
+
+            #region Start the capture process and display in the preview window
+
+            if (_capture != null)
+            {
+                //start the capture
+                Application.Idle += ProcessFrame;
+
+            }
+
+            #endregion
         }
 
         private void frmMain_MaximumSizeChanged(object sender, EventArgs e)
@@ -184,124 +226,12 @@ namespace PhotoBooth
             this.Location = new Point(20, 20);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //Create some GUID names for the captured images
-
-            string img1 = Guid.NewGuid().ToString() + ".jpg";
-            string img2 = Guid.NewGuid().ToString() + ".jpg";
-            string img3 = Guid.NewGuid().ToString() + ".jpg";
-            string img4 = Guid.NewGuid().ToString() + ".jpg";
-            string filmStripImage = Guid.NewGuid().ToString() + "-fS.jpg";
-            
-            //Clear out the previous pictures (if any)
-            imgStrip1.Image = null;
-            imgStrip2.Image = null;
-            imgStrip3.Image = null;
-            imgStrip4.Image = null;
-
-
-
-            //Capture 4 new Pictures
-            capture capTools = new capture();
-
-            imgStrip1.Image = capTools.captureImage(img1);
-            imgStrip2.Image = capTools.captureImage(img2);
-            imgStrip3.Image = capTools.captureImage(img3);
-            imgStrip4.Image = capTools.captureImage(img4);
-
-
-            
-
-        }
-
-        private void captureProcess()
-        {
-            lblStatus.Text = "Get Ready";
-            Application.DoEvents();
-            string img1 = Guid.NewGuid().ToString();
-            string img2 = Guid.NewGuid().ToString();
-            string img3 = Guid.NewGuid().ToString();
-            string img4 = Guid.NewGuid().ToString();
-
-            lblStatus.Text = "Smile!";
-            Application.DoEvents();
-
-            System.Diagnostics.Process capProcess = new System.Diagnostics.Process();
-            capProcess.StartInfo.FileName = "gphoto2";
-            capProcess.StartInfo.Arguments = string.Format(" --capture-image-and-download --filename {0}", img1);
-            capProcess.Start();
-            lblStatus.Text = "Processing Image";
-            Application.DoEvents();
-            capProcess.WaitForExit();
-            imgStrip1.Image = System.Drawing.Image.FromFile(img1);
-
-            lblStatus.Text = "Smile!";
-            Application.DoEvents();
-            capProcess.StartInfo.Arguments = string.Format(" --capture-image-and-download --filename {0}", img2);
-            capProcess.Start();
-            lblStatus.Text = "Processing Image";
-            Application.DoEvents();
-            capProcess.WaitForExit();
-            imgStrip2.Image = System.Drawing.Image.FromFile(img2);
-
-            lblStatus.Text = "Smile!";
-            Application.DoEvents();
-            capProcess.StartInfo.Arguments = string.Format(" --capture-image-and-download --filename {0}", img3);
-            capProcess.Start();
-            lblStatus.Text = "Processing Image";
-            Application.DoEvents();
-            capProcess.WaitForExit();
-            imgStrip3.Image = System.Drawing.Image.FromFile(img3);
-
-            lblStatus.Text = "Smile!";
-            Application.DoEvents();
-            capProcess.StartInfo.Arguments = string.Format(" --capture-image-and-download --filename {0}", img4);
-            capProcess.Start();
-            lblStatus.Text = "Processing Image";
-            Application.DoEvents();
-            capProcess.WaitForExit();
-            imgStrip4.Image = System.Drawing.Image.FromFile(img4);
-            lblStatus.Text = "Done!";
-
-            capProcess.StartInfo.FileName = "convert";
-            capProcess.StartInfo.Arguments = string.Format(" -resize 640x480 -bordercolor black -border 10x6 {0} {0}-small.jpg", img1);
-            capProcess.Start();
-            capProcess.WaitForExit();
-
-            capProcess.StartInfo.Arguments = string.Format(" -resize 640x480 -bordercolor black -border 10x6 {0} {0}-small.jpg", img2);
-            capProcess.Start();
-            capProcess.WaitForExit();
-
-            capProcess.StartInfo.Arguments = string.Format(" -resize 640x480 -bordercolor black -border 10x6 {0} {0}-small.jpg", img3);
-            capProcess.Start();
-            capProcess.WaitForExit();
-
-            capProcess.StartInfo.Arguments = string.Format(" -resize 640x480 -bordercolor black -border 10x6 {0} {0}-small.jpg", img4);
-            capProcess.Start();
-            capProcess.WaitForExit();
-
-
-            capProcess.StartInfo.Arguments = (" *-small.jpg -append finalstrip.jpg");
-            capProcess.Start();
-            capProcess.WaitForExit();
-
-            capProcess.StartInfo.FileName = "lp";
-            capProcess.StartInfo.Arguments = " -d OkiData finalstrip.jpg";
-            capProcess.Start();
-            capProcess.WaitForExit();
-
-            foreach (string file in System.IO.Directory.GetFiles(".", "*-small.jpg"))
-            {
-                System.IO.File.Delete(file);
-            }
-
-            System.IO.File.Delete("finalstrip.jpg");
-        }
+        
 
         private void frmMain_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Console.WriteLine(e.KeyChar);
+            if (e.KeyChar == char.Parse("x"))
+                Application.Exit();
         }
 
         private void cmdStart_KeyPress(object sender, KeyPressEventArgs e)
@@ -310,6 +240,185 @@ namespace PhotoBooth
                 Application.Exit();
         }
 
+
+
+        private void cmdStart_Click(object sender, EventArgs e)
+        {
+            counter = 0;
+            tmrCommon.Enabled = true;
+            tmrCommon.Start();
+            capturing = true;
+
+            imgStrip1.Image = null;
+            imgStrip2.Image = null;
+            imgStrip3.Image = null;
+            imgStrip4.Image = null;
+        }
+
+        private void ProcessFrame(object sender, EventArgs arg)
+        {
+            Image<Bgr, Byte> frame = _capture.QueryFrame();
+
+            if (insText != "")
+            {
+                MCvFont font = new MCvFont(Emgu.CV.CvEnum.FONT.CV_FONT_HERSHEY_TRIPLEX, 2.0, 2.0);
+
+                frame.Draw(insText, ref font, new System.Drawing.Point(150, 450), new Bgr(255, 255, 255));
+
+            }
+
+            imgPreview.Image = frame;
+
+
+        }
+
+        private void tmrCommon_Tick(object sender, EventArgs e)
+        {
+            counter += 100;
+            if (capturing)
+            {
+                if (frameNumber < 4)
+                {
+                    captureFrame();
+                }
+                else
+                {
+                    saveFilmStrip();
+                    printFilmStrip();
+                    frameNumber = 0;
+                    counter = 0;
+                    capturing = false;
+                    tmrCommon.Stop();
+                }
+            }
+
+        }
+
+        private void captureFrame()
+        {
+            #region Countdown
+            if (counter == 100)
+            {
+                insText = "Get Ready";
+            }
+            if (counter == 1500)
+            {
+                insText = "    3";
+            }
+            if (counter == 2500)
+            {
+                insText = "    2";
+            }
+            if (counter == 3500)
+            {
+                insText = "    1";
+            }
+            if (counter == 4500)
+            {
+                insText = "  Smile!";
+            }
+
+            #endregion
+
+            #region Take, save and display the picture
+
+            if (counter == 5500)
+            {
+                string newcapturename = Guid.NewGuid().ToString() + ".jpg";
+                Console.WriteLine(newcapturename);
+                Image<Bgr, Byte> tempImage = _capture.QueryFrame();
+                tempImage.Save(newcapturename);
+                frameNumber++;
+                counter = 0;
+                insText = "";
+
+                switch (frameNumber)
+                {
+                    case 1:
+                        imgStrip1.Image = tempImage.ToBitmap();
+                        break;
+                    case 2:
+                        imgStrip2.Image = tempImage.ToBitmap();
+                        break;
+                    case 3:
+                        imgStrip3.Image = tempImage.ToBitmap();
+                        break;
+                    case 4:
+                        imgStrip4.Image = tempImage.ToBitmap();
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+
+            #endregion
+        }
+
+        public Image AppendBorder(Image original, int borderWidth)
+        {
+            var borderColor = Color.Black;
+
+            var newSize = new Size(
+                original.Width + borderWidth * 2,
+                original.Height + borderWidth * 2);
+
+            var img = new Bitmap(newSize.Width, newSize.Height);
+            var g = Graphics.FromImage(img);
+
+            g.Clear(borderColor);
+            g.DrawImage(original, new Point(borderWidth, borderWidth));
+            g.Dispose();
+
+            return img;
+        }
+
+        public void saveFilmStrip()
+        {
+
+            Image filmStrip = imgStrip1.Image;
+            using (filmStrip)
+            {
+                Image i1 = AppendBorder(imgStrip1.Image, 10);
+                Image i2 = AppendBorder(imgStrip2.Image, 10);
+                Image i3 = AppendBorder(imgStrip3.Image, 10);
+                Image i4 = AppendBorder(imgStrip4.Image, 10);
+                    using (var bitmap = new Bitmap(i1.Width, i1.Height + i2.Height + i3.Height + i4.Height))
+                    {
+                        using (var canvas = Graphics.FromImage(bitmap))
+                        {
+                            canvas.DrawImage(i1, new Point(0, 0));
+                            canvas.DrawImage(i2, new Point(0, 0 + i1.Height));
+                            canvas.DrawImage(i3, new Point(0, 0 + i1.Height + i2.Height));
+                            canvas.DrawImage(i4, new Point(0, 0 + i1.Height + i2.Height + i3.Height));
+                            canvas.Save();
+                        }
+                        string filmStripName = Guid.NewGuid().ToString() + "-fs.jpg";
+                        bitmap.Save(filmStripName);
+                        lastFilmStrip = filmStripName;
+                        
+                    }
+            }
+            
+
+
+            
+
+        }
+
+        public void printFilmStrip()
+        {
+            System.Drawing.Printing.PrintDocument filmStripDoc = new System.Drawing.Printing.PrintDocument();
+            filmStripDoc.DocumentName = "filmStrip";
+            filmStripDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(filmStripDoc_PrintPage);
+        }
+
+        void filmStripDoc_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            Image filmStrip = Image.FromFile(lastFilmStrip);
+            e.Graphics.DrawImage(filmStrip, 10, 10);
+            
+        }
 
     }
 }

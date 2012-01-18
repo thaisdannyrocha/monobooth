@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.cmdStart = new System.Windows.Forms.Button();
             this.imgStrip4 = new System.Windows.Forms.PictureBox();
@@ -36,12 +37,14 @@
             this.imgStrip1 = new System.Windows.Forms.PictureBox();
             this.lblCompleteMsg = new System.Windows.Forms.Label();
             this.imgQR = new System.Windows.Forms.PictureBox();
-            this.lblStatus = new System.Windows.Forms.Label();
+            this.imgPreview = new Emgu.CV.UI.ImageBox();
+            this.tmrCommon = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgQR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdStart
@@ -52,7 +55,7 @@
             this.cmdStart.TabIndex = 5;
             this.cmdStart.Text = "Start";
             this.cmdStart.UseVisualStyleBackColor = true;
-            this.cmdStart.Click += new System.EventHandler(this.button1_Click);
+            this.cmdStart.Click += new System.EventHandler(this.cmdStart_Click);
             this.cmdStart.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cmdStart_KeyPress);
             // 
             // imgStrip4
@@ -116,16 +119,19 @@
             this.imgQR.TabStop = false;
             this.imgQR.Visible = false;
             // 
-            // lblStatus
+            // imgPreview
             // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(450, 354);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(73, 25);
-            this.lblStatus.TabIndex = 8;
-            this.lblStatus.Text = "Status";
-            this.lblStatus.Visible = false;
+            this.imgPreview.BackColor = System.Drawing.Color.Black;
+            this.imgPreview.Location = new System.Drawing.Point(302, 189);
+            this.imgPreview.Name = "imgPreview";
+            this.imgPreview.Size = new System.Drawing.Size(442, 352);
+            this.imgPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imgPreview.TabIndex = 2;
+            this.imgPreview.TabStop = false;
+            // 
+            // tmrCommon
+            // 
+            this.tmrCommon.Tick += new System.EventHandler(this.tmrCommon_Tick);
             // 
             // frmMain
             // 
@@ -135,7 +141,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(800, 600);
-            this.Controls.Add(this.lblStatus);
+            this.Controls.Add(this.imgPreview);
             this.Controls.Add(this.imgQR);
             this.Controls.Add(this.lblCompleteMsg);
             this.Controls.Add(this.cmdStart);
@@ -154,6 +160,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgQR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgPreview)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,7 +175,8 @@
         private System.Windows.Forms.Button cmdStart;
         private System.Windows.Forms.Label lblCompleteMsg;
         private System.Windows.Forms.PictureBox imgQR;
-        private System.Windows.Forms.Label lblStatus;
+        private Emgu.CV.UI.ImageBox imgPreview;
+        private System.Windows.Forms.Timer tmrCommon;
     }
 }
 
