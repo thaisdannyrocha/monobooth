@@ -10,6 +10,6 @@ The minimum requirements for getting the monobooth application up and running is
 
 *Mono (full)
 
-*gphoto2
+*Emgu CV
 
 *Xorg
