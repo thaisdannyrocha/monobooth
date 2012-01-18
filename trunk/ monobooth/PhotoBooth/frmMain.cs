@@ -186,6 +186,37 @@ namespace PhotoBooth
 
         private void button1_Click(object sender, EventArgs e)
         {
+            //Create some GUID names for the captured images
+
+            string img1 = Guid.NewGuid().ToString() + ".jpg";
+            string img2 = Guid.NewGuid().ToString() + ".jpg";
+            string img3 = Guid.NewGuid().ToString() + ".jpg";
+            string img4 = Guid.NewGuid().ToString() + ".jpg";
+            string filmStripImage = Guid.NewGuid().ToString() + "-fS.jpg";
+            
+            //Clear out the previous pictures (if any)
+            imgStrip1.Image = null;
+            imgStrip2.Image = null;
+            imgStrip3.Image = null;
+            imgStrip4.Image = null;
+
+
+
+            //Capture 4 new Pictures
+            capture capTools = new capture();
+
+            imgStrip1.Image = capTools.captureImage(img1);
+            imgStrip2.Image = capTools.captureImage(img2);
+            imgStrip3.Image = capTools.captureImage(img3);
+            imgStrip4.Image = capTools.captureImage(img4);
+
+
+            
+
+        }
+
+        private void captureProcess()
+        {
             lblStatus.Text = "Get Ready";
             Application.DoEvents();
             string img1 = Guid.NewGuid().ToString();
@@ -213,7 +244,7 @@ namespace PhotoBooth
             Application.DoEvents();
             capProcess.WaitForExit();
             imgStrip2.Image = System.Drawing.Image.FromFile(img2);
-            
+
             lblStatus.Text = "Smile!";
             Application.DoEvents();
             capProcess.StartInfo.Arguments = string.Format(" --capture-image-and-download --filename {0}", img3);
@@ -266,10 +297,6 @@ namespace PhotoBooth
             }
 
             System.IO.File.Delete("finalstrip.jpg");
-
-
-
-
         }
 
         private void frmMain_KeyPress(object sender, KeyPressEventArgs e)
