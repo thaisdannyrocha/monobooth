@@ -35,15 +35,12 @@
             this.imgStrip3 = new System.Windows.Forms.PictureBox();
             this.imgStrip2 = new System.Windows.Forms.PictureBox();
             this.imgStrip1 = new System.Windows.Forms.PictureBox();
-            this.lblCompleteMsg = new System.Windows.Forms.Label();
-            this.imgQR = new System.Windows.Forms.PictureBox();
             this.imgPreview = new Emgu.CV.UI.ImageBox();
             this.tmrCommon = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgQR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgPreview)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,27 +95,6 @@
             this.imgStrip1.TabIndex = 0;
             this.imgStrip1.TabStop = false;
             // 
-            // lblCompleteMsg
-            // 
-            this.lblCompleteMsg.AutoSize = true;
-            this.lblCompleteMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCompleteMsg.Location = new System.Drawing.Point(126, 9);
-            this.lblCompleteMsg.Name = "lblCompleteMsg";
-            this.lblCompleteMsg.Size = new System.Drawing.Size(583, 25);
-            this.lblCompleteMsg.TabIndex = 6;
-            this.lblCompleteMsg.Text = "Your PhotoStrip is complete. Scan this QR code to get them";
-            this.lblCompleteMsg.Visible = false;
-            // 
-            // imgQR
-            // 
-            this.imgQR.BackColor = System.Drawing.Color.Black;
-            this.imgQR.Location = new System.Drawing.Point(386, 34);
-            this.imgQR.Name = "imgQR";
-            this.imgQR.Size = new System.Drawing.Size(75, 75);
-            this.imgQR.TabIndex = 7;
-            this.imgQR.TabStop = false;
-            this.imgQR.Visible = false;
-            // 
             // imgPreview
             // 
             this.imgPreview.BackColor = System.Drawing.Color.Black;
@@ -142,8 +118,6 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(800, 600);
             this.Controls.Add(this.imgPreview);
-            this.Controls.Add(this.imgQR);
-            this.Controls.Add(this.lblCompleteMsg);
             this.Controls.Add(this.cmdStart);
             this.Controls.Add(this.imgStrip4);
             this.Controls.Add(this.imgStrip3);
@@ -159,10 +133,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgStrip1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgQR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgPreview)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -173,8 +145,6 @@
         private System.Windows.Forms.PictureBox imgStrip3;
         private System.Windows.Forms.PictureBox imgStrip4;
         private System.Windows.Forms.Button cmdStart;
-        private System.Windows.Forms.Label lblCompleteMsg;
-        private System.Windows.Forms.PictureBox imgQR;
         private Emgu.CV.UI.ImageBox imgPreview;
         private System.Windows.Forms.Timer tmrCommon;
     }

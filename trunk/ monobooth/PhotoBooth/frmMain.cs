@@ -14,10 +14,6 @@ namespace PhotoBooth
 {
     public partial class frmMain : Form
     {
-        //Set up some public var
-        public string completeMessage = "";
-        public bool completeMessageFlash = false;
-        public bool completeMessageShowQR = false;
 
 
         private Capture _capture;
@@ -87,18 +83,14 @@ namespace PhotoBooth
 
             //Check to see if this is a new config file. If it is, then write
             //the default values.
-            bool SWindow = false;
             bool SimgStrip1 = false;
             bool SimgStrip2 = false;
             bool SimgStrip3 = false;
             bool SimgStrip4 = false;
-            bool ScompleteMsg = false;
             if (xcfg.Settings.ChildCount(false) != 0)
             {
                 foreach (VAkos.ConfigSetting child in xcfg.Settings.Children())
                 {
-                    if (child.Name == "window")
-                        SWindow = true;
                     if (child.Name == "imgStrip1")
                         SimgStrip1 = true;
                     if (child.Name == "imgStrip2")
@@ -107,8 +99,6 @@ namespace PhotoBooth
                         SimgStrip3 = true;
                     if (child.Name == "imgStrip4")
                         SimgStrip4 = true;
-                    if (child.Name == "completeMsg")
-                        ScompleteMsg = true;
                 }
             }
             
@@ -192,33 +182,7 @@ namespace PhotoBooth
                 xcfg.Settings["imgStrip4"]["backgroundcolor"].Value = imgStrip4.BackColor.Name.ToString();
             }
 
-            //Complete Message
-            if (ScompleteMsg)
-            {
-                completeMessage = xcfg.Settings["completeMsg"]["text"].Value;
-                completeMessageFlash = xcfg.Settings["completeMsg"]["flash"].boolValue;
-                completeMessageShowQR = xcfg.Settings["completeMsg"]["showQRcode"].boolValue;
-
-                Point lblCompleteLocation = new Point(xcfg.Settings["completeMsg"]["X"].intValue, xcfg.Settings["completeMsd"]["Y"].intValue);
-                lblCompleteMsg.Location = lblCompleteLocation;
-                lblCompleteMsg.Text = completeMessage;
-                lblCompleteMsg.ForeColor = System.Drawing.Color.FromName(xcfg.Settings["completeMsg"]["color"].Value);
-
-                Point imgQRCodeLocation = new Point(xcfg.Settings["completeMsg"]["QRcode"]["X"].intValue, xcfg.Settings["completeMsg"]["QRcode"]["Y"].intValue);
-                imgQR.Location = imgQRCodeLocation;
-                imgQR.Height = xcfg.Settings["completeMsg"]["QRcode"]["height"].intValue;
-                imgQR.Width = xcfg.Settings["completeMsg"]["QRcode"]["width"].intValue;
-            }
-            else
-            {
-                xcfg.Settings["completeMsg"]["text"].Value = lblCompleteMsg.Text; 
-                xcfg.Settings["completeMsg"]["flash"].boolValue = completeMessageFlash;
-                xcfg.Settings["completeMsg"]["showQRcode"].boolValue = true;
-                xcfg.Settings["completeMsg"]["X"].intValue = lblCompleteMsg.Location.X;
-                xcfg.Settings["completeMsd"]["Y"].intValue = lblCompleteMsg.Location.Y;
-                xcfg.Settings["completeMsg"]["color"].Value = lblCompleteMsg.ForeColor.Name.ToString() ;
-
-            }
+            
 
 
             //Save settings incase anything was not specified and defaults were added
@@ -411,12 +375,18 @@ namespace PhotoBooth
             System.Drawing.Printing.PrintDocument filmStripDoc = new System.Drawing.Printing.PrintDocument();
             filmStripDoc.DocumentName = "filmStrip";
             filmStripDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(filmStripDoc_PrintPage);
+            filmStripDoc.Print();
         }
 
         void filmStripDoc_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             Image filmStrip = Image.FromFile(lastFilmStrip);
-            e.Graphics.DrawImage(filmStrip, 10, 10);
+            float scaledWidth = (float)(filmStrip.Size.Width * .30);
+            float scaledHeight = (float)(filmStrip.Size.Height * .30);
+
+            e.Graphics.DrawImage(filmStrip, 10, 10, scaledWidth, scaledHeight);
+            e.Graphics.DrawImage(filmStrip, 20 + scaledWidth, 10, scaledWidth, scaledHeight);
+            
             
         }
 
