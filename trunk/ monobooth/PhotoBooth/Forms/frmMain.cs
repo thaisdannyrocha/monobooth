@@ -118,6 +118,7 @@ namespace PhotoBooth
 
 
 
+
         private void cmdStart_Click(object sender, EventArgs e)
         {
             counter = 0;
