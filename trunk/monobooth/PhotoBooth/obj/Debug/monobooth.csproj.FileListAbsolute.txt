@@ -127,3 +127,20 @@ C:\Data\Development\des-svn\Personal\monobooth\PhotoBooth\obj\Debug\PhotoBooth.f
 C:\Data\Development\des-svn\Personal\monobooth\PhotoBooth\obj\Debug\monobooth.Properties.Resources.resources
 C:\Data\Development\des-svn\Personal\monobooth\PhotoBooth\obj\Debug\ResGen.read.1.tlog
 C:\Data\Development\des-svn\Personal\monobooth\PhotoBooth\obj\Debug\ResGen.write.1.tlog
+C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\monobooth.exe
+C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\monobooth.pdb
+C:\Data\Development\Google Code\monobooth\PhotoBooth\bin\Debug\monobooth.exe
+C:\Data\Development\Google Code\monobooth\PhotoBooth\bin\Debug\monobooth.pdb
+C:\Data\Development\Google Code\monobooth\PhotoBooth\bin\Debug\ThoughtWorks.QRCode.dll
+C:\Data\Development\Google Code\monobooth\PhotoBooth\bin\Debug\VAkos.dll
+C:\Data\Development\Google Code\monobooth\PhotoBooth\bin\Debug\ZedGraph.dll
+C:\Data\Development\Google Code\monobooth\PhotoBooth\bin\Debug\Emgu.CV.xml
+C:\Data\Development\Google Code\monobooth\PhotoBooth\bin\Debug\Emgu.CV.UI.xml
+C:\Data\Development\Google Code\monobooth\PhotoBooth\bin\Debug\Emgu.Util.xml
+C:\Data\Development\Google Code\monobooth\PhotoBooth\bin\Debug\ZedGraph.xml
+C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\ResolveAssemblyReference.cache
+C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\PhotoBooth.frmBooth.resources
+C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\PhotoBooth.frmMain.resources
+C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\monobooth.Properties.Resources.resources
+C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\ResGen.read.1.tlog
+C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\ResGen.write.1.tlog
