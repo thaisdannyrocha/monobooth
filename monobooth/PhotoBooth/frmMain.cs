@@ -376,13 +376,14 @@ namespace PhotoBooth
 
             if (counter == 5500)
             {
+                insText = "";
                 string newcapturename = Guid.NewGuid().ToString() + ".jpg";
                 Console.WriteLine(newcapturename);
                 Image<Bgr, Byte> tempImage = _capture.QueryFrame();
                 tempImage.Save(newcapturename);
                 frameNumber++;
                 counter = 0;
-                insText = "";
+                
 
                 switch (frameNumber)
                 {
