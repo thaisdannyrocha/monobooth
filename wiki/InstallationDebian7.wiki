@@ -40,11 +40,12 @@ Go to System Tools > Preferences > System Settings > Printers and configure a pr
   #3 From a terminal, you can now go the directory where you extracted monobooth and run:
   {{{ mono monobooth.exe}}}
 
+==Monobooth configuration==
+Monobooth will default to 800x600. If you set your resolution to 800x600, the entire screen will be taken up for a nice appearance. If you want to use a higher resolution, you can change the settings in the config.xml file, but you will have to also manually change the position of the filmstrip boxes and preview window. See the [Config] Wiki page
+
 If you webcam was detected by Debian, you should now be up and running. to exit out of monobooth (If you have it taking up your full screen) click anywhere inside the monobooth window and press the X key on your keyboard.
 
 =Helpful Information=
   * The filmstrips will be saved in the same folder that you ran monobooth in. I will be making this configurable in a later version
   * The individual images (4 per filmstrip) will be named a GUID and the filmstrip with all 4 images will be named GUID-fs
   * Monobooth will automatically print the filmstrip to fill up a 4x6 photo paper. If you have your printer loaded with photo paper, you should automatically get 2 copies of every filmstrip that you can cut in half
-
-
