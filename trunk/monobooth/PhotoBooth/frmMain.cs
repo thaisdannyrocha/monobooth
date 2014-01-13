@@ -22,6 +22,8 @@ namespace PhotoBooth
         private int frameNumber;
         private string insText = "";
         public string lastFilmStrip;
+        private Point MouseDownLocation;
+        private bool captureEnabled = true;
 
 
         //Set up a public config object
@@ -63,7 +65,11 @@ namespace PhotoBooth
             if (_capture != null)
             {
                 //start the capture
-                Application.Idle += ProcessFrame;
+                
+                //Application.Idle += ProcessFrame;
+                captureEnabled = true;
+                System.Threading.Thread capThread = new System.Threading.Thread(new System.Threading.ThreadStart(captureThread));
+                capThread.Start();
 
             }
 
@@ -73,6 +79,31 @@ namespace PhotoBooth
         private void frmMain_MaximumSizeChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void saveInterfaceState()
+        {
+            xcfg.Settings["imgStrip1"]["locationX"].intValue = imgStrip1.Location.X;
+            xcfg.Settings["imgStrip1"]["locationY"].intValue = imgStrip1.Location.Y;
+
+            xcfg.Settings["imgStrip2"]["locationX"].intValue = imgStrip2.Location.X;
+            xcfg.Settings["imgStrip2"]["locationY"].intValue = imgStrip2.Location.Y;
+
+            xcfg.Settings["imgStrip3"]["locationX"].intValue = imgStrip3.Location.X;
+            xcfg.Settings["imgStrip3"]["locationY"].intValue = imgStrip3.Location.Y;
+
+            xcfg.Settings["imgStrip4"]["locationX"].intValue = imgStrip4.Location.X;
+            xcfg.Settings["imgStrip4"]["locationY"].intValue = imgStrip4.Location.Y;
+            
+            xcfg.Settings["startButton"]["locationX"].intValue = cmdStart.Location.X;
+            xcfg.Settings["startButton"]["locationY"].intValue = cmdStart.Location.Y;
+
+            xcfg.Settings["previewWindow"]["locationX"].intValue = imgPreview.Location.X;
+            xcfg.Settings["previewWindow"]["locationY"].intValue = imgPreview.Location.Y;
+
+            xcfg.Save("config.xml");
+
+
         }
 
         private void setupInterface()
@@ -89,13 +120,7 @@ namespace PhotoBooth
             {
                 xcfg = new VAkos.Xmlconfig("config.xml", true);
             }
-            //xcfg.LoadXmlFromFile("config.xml");
-            //Set up the front end interface and any other settings. 
-            //If any setting is not already set in the xml, add the default
-            //to the xml file.
-
-            //Check to see if this is a new config file. If it is, then write
-            //the default values.
+           
             bool SimgStrip1 = false;
             bool SimgStrip2 = false;
             bool SimgStrip3 = false;
@@ -114,8 +139,6 @@ namespace PhotoBooth
                         SimgStrip4 = true;
                 }
             }
-            
-
 
             //Window Width
             if (xcfg.Settings["window"]["width"].intValue > 0)
@@ -135,6 +158,31 @@ namespace PhotoBooth
             else
                 this.BackgroundImage = ((System.Drawing.Image)(monobooth.Properties.Resources.ResourceManager.GetObject("BackgroundImage")));
             
+            //Start Button
+            if (xcfg.Settings["startButton"]["locationX"].Value != "")
+            {
+                Point cmdStartLocation = new Point(xcfg.Settings["startButton"]["locationX"].intValue,
+                                                   xcfg.Settings["startButton"]["locationY"].intValue);
+                cmdStart.Location = cmdStartLocation;
+            }
+            else
+            {
+                xcfg.Settings["startButton"]["locationX"].intValue = cmdStart.Location.X;
+                xcfg.Settings["startButton"]["locationY"].intValue = cmdStart.Location.Y;
+            }
+
+            //Preview Window
+            if (xcfg.Settings["previewWindow"]["locationX"].Value != "")
+            {
+                Point imgPreviewLocation = new Point(xcfg.Settings["previewWindow"]["locationX"].intValue,
+                                                   xcfg.Settings["previewWindow"]["locationY"].intValue);
+                imgPreview.Location = imgPreviewLocation;
+            }
+            else
+            {
+                xcfg.Settings["previewWindow"]["locationX"].intValue = imgPreview.Location.X;
+                xcfg.Settings["previewWindow"]["locationY"].intValue = imgPreview.Location.Y;
+            }
 
             //image1 box settings
             if (SimgStrip1)
@@ -228,6 +276,7 @@ namespace PhotoBooth
 
         private void cmdStart_Click(object sender, EventArgs e)
         {
+            
             counter = 0;
             tmrCommon.Enabled = true;
             tmrCommon.Start();
@@ -237,6 +286,25 @@ namespace PhotoBooth
             imgStrip2.Image = null;
             imgStrip3.Image = null;
             imgStrip4.Image = null;
+        }
+
+        private void captureThread()
+        {
+            while (captureEnabled)
+            {
+                System.Threading.Thread.Sleep(20);
+                Image<Bgr, Byte> frame = _capture.QueryFrame();
+
+                if (insText != "")
+                {
+                    MCvFont font = new MCvFont(Emgu.CV.CvEnum.FONT.CV_FONT_HERSHEY_TRIPLEX, 2.0, 2.0);
+
+                    frame.Draw(insText, ref font, new System.Drawing.Point(150, 450), new Bgr(255, 255, 255));
+
+                }
+
+                imgPreview.Image = frame;
+            }
         }
 
         private void ProcessFrame(object sender, EventArgs arg)
@@ -408,6 +476,114 @@ namespace PhotoBooth
             e.Graphics.DrawImage(filmStrip, 20 + scaledWidth, 10, scaledWidth, scaledHeight);
             
             
+        }
+
+        private void cmdStart_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                MouseDownLocation = e.Location;
+            }
+        }
+
+        private void cmdStart_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                cmdStart.Left = e.X + cmdStart.Left - MouseDownLocation.X;
+                cmdStart.Top = e.Y + cmdStart.Top - MouseDownLocation.Y;
+            }
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            saveInterfaceState();
+            captureEnabled = false;
+        }
+
+        private void imgStrip1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                MouseDownLocation = e.Location;
+            }
+        }
+
+        private void imgStrip1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                imgStrip1.Left = e.X + imgStrip1.Left - MouseDownLocation.X;
+                imgStrip1.Top = e.Y + imgStrip1.Top - MouseDownLocation.Y;
+            }
+        }
+
+        private void imgStrip2_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                MouseDownLocation = e.Location;
+            }
+        }
+
+        private void imgStrip2_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                imgStrip2.Left = e.X + imgStrip2.Left - MouseDownLocation.X;
+                imgStrip2.Top = e.Y + imgStrip2.Top - MouseDownLocation.Y;
+            }
+        }
+
+        private void imgStrip3_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                MouseDownLocation = e.Location;
+            }
+        }
+
+        private void imgStrip3_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                imgStrip3.Left = e.X + imgStrip3.Left - MouseDownLocation.X;
+                imgStrip3.Top = e.Y + imgStrip3.Top - MouseDownLocation.Y;
+            }
+        }
+
+        private void imgStrip4_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                MouseDownLocation = e.Location;
+            }
+        }
+
+        private void imgStrip4_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                imgStrip4.Left = e.X + imgStrip4.Left - MouseDownLocation.X;
+                imgStrip4.Top = e.Y + imgStrip4.Top - MouseDownLocation.Y;
+            }
+        }
+
+        private void imgPreview_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                MouseDownLocation = e.Location;
+            }
+        }
+
+        private void imgPreview_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                imgPreview.Left = e.X + imgPreview.Left - MouseDownLocation.X;
+                imgPreview.Top = e.Y + imgPreview.Top - MouseDownLocation.Y;
+            }
         }
 
     }

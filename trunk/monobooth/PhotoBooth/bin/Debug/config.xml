@@ -2,8 +2,16 @@
   <window>
     <width value="800" />
     <height value="600" />
-    <background value="" />
+    <background />
   </window>
+  <startButton>
+    <locationX value="386" />
+    <locationY value="547" />
+  </startButton>
+  <previewWindow>
+    <locationX value="302" />
+    <locationY value="189" />
+  </previewWindow>
   <imgStrip1>
     <enabled value="True" />
     <locationX value="123" />

@@ -138,9 +138,7 @@ C:\Data\Development\Google Code\monobooth\PhotoBooth\bin\Debug\Emgu.CV.xml
 C:\Data\Development\Google Code\monobooth\PhotoBooth\bin\Debug\Emgu.CV.UI.xml
 C:\Data\Development\Google Code\monobooth\PhotoBooth\bin\Debug\Emgu.Util.xml
 C:\Data\Development\Google Code\monobooth\PhotoBooth\bin\Debug\ZedGraph.xml
-C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\ResolveAssemblyReference.cache
-C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\PhotoBooth.frmBooth.resources
 C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\PhotoBooth.frmMain.resources
 C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\monobooth.Properties.Resources.resources
-C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\ResGen.read.1.tlog
-C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\ResGen.write.1.tlog
+C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\monobooth.csprojResolveAssemblyReference.cache
+C:\Data\Development\Google Code\monobooth\PhotoBooth\obj\Debug\monobooth.csproj.GenerateResource.Cache
