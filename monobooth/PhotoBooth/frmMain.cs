@@ -460,10 +460,18 @@ namespace PhotoBooth
 
         public void printFilmStrip()
         {
-            System.Drawing.Printing.PrintDocument filmStripDoc = new System.Drawing.Printing.PrintDocument();
-            filmStripDoc.DocumentName = "filmStrip";
-            filmStripDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(filmStripDoc_PrintPage);
-            filmStripDoc.Print();
+            try
+            {
+                System.Drawing.Printing.PrintDocument filmStripDoc = new System.Drawing.Printing.PrintDocument();
+                filmStripDoc.DocumentName = "filmStrip";
+                filmStripDoc.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(filmStripDoc_PrintPage);
+                filmStripDoc.Print();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
         }
 
         void filmStripDoc_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
