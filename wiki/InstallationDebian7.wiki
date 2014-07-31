@@ -24,8 +24,7 @@ In order for Monobooth to run, you need to have mono installed on your system as
   {{{ apt-get install mono-complete}}}
   #2 Install OpenCV (Required for WebCam Video)
   {{{ apt-get install libopencv-*}}}
-  #3 Now that all the requirements are set up, we need to do some linking to get the expected library names to match EMGU-CV. You may need to replace the version (ex. 2.3.1) to whatever version apt-get installs when running the commands below.
-
+  #3 Now that all the requirements are set up, we need to do some linking to get the expected library names to match EMGU-CV. You may need to replace the version number to whatever version apt-get installs in step 2.
   {{{ ln -s /usr/lib/libopencv_core.so.2.3.1 /usr/lib/opencv_core231 }}}
 
   {{{ ln -s /usr/lib/libopencv_highgui.so.2.3.1 /usr/lib/opencv_highgui231}}}
